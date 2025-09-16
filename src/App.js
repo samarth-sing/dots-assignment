@@ -1,7 +1,16 @@
+import { useState } from "react";
 import "./App.css";
+import SearchBar from "./components/SearchBar";
 
 function App() {
-  return <div>hi</div>;
+  const [inputField, setInputField] = useState("");
+  return (
+    <div className="mainContainer">
+      <div className="container">
+        <SearchBar inputField={inputField} setInputField={setInputField} />
+      </div>
+    </div>
+  );
 }
 
 export default App;
