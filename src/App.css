@@ -1,0 +1,276 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+.mainContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container {
+  background-color: #ededed;
+  width: 800px;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.searchBox {
+  min-width: 600px;
+  max-width: 700px;
+  background-color: white;
+  box-shadow: 2px 5px 5px 2px #0000000d;
+  border-radius: 20px;
+}
+
+.searchBar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 15px 12px 20px;
+}
+
+.searchBar .searchBarIcon {
+  width: 24px;
+  height: 24px;
+}
+
+.searchBar .searchBarInputField {
+  flex: 1;
+  border: none;
+  font-size: 18px;
+  font-family: "poppins";
+  font-weight: 500;
+}
+
+.searchBar .searchBarInputField:focus-visible {
+  outline: 0;
+}
+
+.searchBar .searchBarInputField::placeholder {
+  font-size: 18px;
+  color: #9e9d9d;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 400;
+}
+
+.searchBar .searchBarRightOptions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.searchBar .searchBarSIcon {
+  position: relative;
+  border: 2px solid #ddd;
+  padding: 12px 10px;
+  border-radius: 8px;
+}
+
+.searchBar .searchBarSIcon > p {
+  position: absolute;
+  top: -2px;
+  left: -1px;
+  right: -1px;
+  bottom: 3px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #7e7e7e;
+  font-family: "poppins";
+  text-align: center;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  margin: 0 auto;
+}
+
+.searchBar .searchBarQuickText {
+  font-size: 11px;
+  font-weight: 500;
+  color: #7e7e7e;
+  font-family: "poppins";
+}
+
+.searchBar .searchBarClearBtn {
+  cursor: pointer;
+  text-decoration: underline;
+  color: #333;
+  background: none;
+  border: none;
+  font-weight: 600;
+}
+
+.searchBox .TabWithDataBox {
+  padding: 0;
+}
+
+.searchTabBox {
+  margin-top: 12px;
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  border-bottom: 2px solid #dddada;
+  padding-right: 20px;
+  padding-left: 5px;
+}
+
+.searchTabBox .searchTabs {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  padding: 0px 15px 0px 30px;
+}
+
+.searchTabBox .searchTabs > div {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  padding-bottom: 8px;
+}
+
+.searchTabBox .searchTabs .tabsIcon {
+  width: 16px;
+  height: 16px;
+}
+
+.searchTabBox .searchTabs .tab {
+  cursor: pointer;
+}
+
+.searchTabBox .searchTabs .activeTab {
+  border-bottom: 3px #333 solid;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.searchTabBox .searchTabs .searchTabsField {
+  font-size: 14px;
+  font-family: "poppins";
+  color: #9e9d9d;
+  margin-right: 2px;
+}
+
+.searchTabBox .searchTabs .activeTab .searchTabsField {
+  font-weight: 600;
+  color: #333;
+}
+
+.searchTabBox .searchTabs .searchTabsCount {
+  font-size: 13px;
+  font-family: "poppins";
+  font-weight: 500;
+  color: #9e9d9d;
+  background-color: #e9e5e5;
+  padding: 0px 4px;
+  margin: 0;
+  border-radius: 5px;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.searchTabBox .searchTabsSetting {
+  position: relative;
+  cursor: pointer;
+}
+
+.searchTabBox .searchTabsSetting .settingIcon {
+  width: 20px;
+  height: 20px;
+}
+
+.searchTabBox .searchTabsSetting .settingIcon:hover {
+  background-color: #f0eaea;
+  border-radius: 6px;
+  padding: 4px;
+  width: 16px;
+  height: 16px;
+}
+
+.searchTabBox .searchTabsSetting .settingPopup {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  top: 35px;
+  right: 0;
+  left: -180px;
+  background-color: white;
+  padding: 12px;
+  border: 1px solid #dddada;
+  box-shadow: 2px 5px 5px 2px #0000000d;
+  border-radius: 10px;
+}
+
+.searchTabBox .searchTabsSetting .settingPopup .settingOption {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.searchTabBox .searchTabsSetting .settingPopup .settingOption img {
+  width: 15px;
+  height: 15px;
+}
+
+.searchTabBox .searchTabsSetting .settingPopup .settingOption span {
+  font-family: "poppins";
+  color: #bdbbbb;
+  font-size: 14px;
+  flex: 1;
+}
+
+.searchTabBox .searchTabsSetting .settingPopup .settingOption .settingOpSwitch {
+  width: 30px;
+  height: 16px;
+  background-color: #e9e5e5;
+  border-radius: 8px;
+  align-content: flex-end;
+  position: relative;
+  cursor: pointer;
+}
+
+.searchTabBox
+  .searchTabsSetting
+  .settingPopup
+  .settingOption
+  .settingsOpSwitchOn {
+  background-color: black;
+}
+
+.searchTabBox
+  .searchTabsSetting
+  .settingPopup
+  .settingOption
+  .settingOpSwitch
+  label {
+  width: 12px;
+  height: 12px;
+  background-color: white;
+  border-radius: 6px;
+  position: absolute;
+  top: 2px;
+  bottom: 2px;
+  cursor: pointer;
+}
+
+.searchTabBox
+  .searchTabsSetting
+  .settingPopup
+  .settingOption
+  .settingOpSwitch
+  label.settingOptionOff {
+  left: 2px;
+}
+
+.searchTabBox
+  .searchTabsSetting
+  .settingPopup
+  .settingOption
+  .settingOpSwitch
+  label.settingOptionOn {
+  right: 2px;
+}
+
+.searchBoxResult {
+  padding: 12px 15px 12px 20px;
+}
