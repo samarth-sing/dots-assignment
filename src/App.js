@@ -1,14 +1,13 @@
 import { useState } from "react";
 import "./App.css";
 import SearchBar from "./components/SearchBar";
+import "./dataPreview.css";
 
 function App() {
   const [inputField, setInputField] = useState("");
   return (
-    <div className="mainContainer">
-      <div className="container">
-        <SearchBar inputField={inputField} setInputField={setInputField} />
-      </div>
+    <div className="container">
+      <SearchBar inputField={inputField} setInputField={setInputField} />
     </div>
   );
 }
