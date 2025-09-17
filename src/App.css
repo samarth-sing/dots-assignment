@@ -104,9 +104,6 @@
   border-bottom: 2px solid #dddada;
   padding-right: 20px;
   padding-left: 5px;
-  transition: 0.4s ease, tra;
-  transform: translateY(20px);
-  transition: 0.4s ease, translateY(20px) 0.4 ease, translate(0) 0.4s ease;
 }
 
 .searchTabBox .searchTabs {
@@ -169,16 +166,21 @@
   cursor: pointer;
 }
 
+.searchTabBox .searchTabsSetting .settingIconDiv:hover {
+  background-color: #f0eaea;
+  border-radius: 6px;
+}
+
 .searchTabBox .searchTabsSetting .settingIcon {
   width: 20px;
   height: 20px;
   padding: 4px;
 }
 
-.searchTabBox .searchTabsSetting .settingIcon:hover {
+/* .searchTabBox .searchTabsSetting .settingIcon:hover {
   background-color: #f0eaea;
   border-radius: 6px;
-}
+} */
 
 .searchTabBox .searchTabsSetting .settingPopup {
   position: absolute;

@@ -213,6 +213,11 @@ const SearchBar = ({ inputField, setInputField }) => {
     },
   };
 
+  const settingIconVariant = {
+    open: { rotate: 30, transition: { duration: 0.4, ease: "easeInOut" } },
+    closed: { rotate: 0, transition: { duration: 0.4, ease: "easeInOut" } },
+  };
+
   return (
     <div className="searchBox">
       <div className="searchBar">
@@ -342,14 +347,18 @@ const SearchBar = ({ inputField, setInputField }) => {
                   )}
                 </div>
                 <div className="searchTabsSetting">
-                  <img
-                    className={"settingIcon"}
-                    onClick={() => {
-                      setShowSettingPopup(!showSettingPopup);
-                    }}
-                    src={settingIcon}
-                    alt="setting-icon"
-                  />
+                  <div className="settingIconDiv">
+                    <motion.img
+                      className={"settingIcon"}
+                      onClick={() => {
+                        setShowSettingPopup(!showSettingPopup);
+                      }}
+                      variants={settingIconVariant}
+                      animate={showSettingPopup ? "open" : "closed"}
+                      src={settingIcon}
+                      alt="setting-icon"
+                    />
+                  </div>
                   <AnimatePresence>
                     {showSettingPopup && (
                       <motion.div
