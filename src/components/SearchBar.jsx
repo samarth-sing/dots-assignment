@@ -14,6 +14,7 @@ import {
   searchIcon,
   settingIcon,
 } from "../assets/images/images";
+import { motion, AnimatePresence } from "framer-motion";
 
 const SearchBar = ({ inputField, setInputField }) => {
   const dataList = [
@@ -163,6 +164,55 @@ const SearchBar = ({ inputField, setInputField }) => {
     );
   };
 
+  const settingsContainerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15,
+        when: "beforeChildren",
+      },
+    },
+    exit: {
+      opacity: 0,
+      transition: {
+        staggerChildren: 0.15,
+        staggerDirection: -1,
+        when: "afterChildren",
+      },
+    },
+  };
+
+  const settingsItemVariants = {
+    hidden: { opacity: 0, y: -10 },
+    visible: { opacity: 1, y: 0 },
+    exit: { opacity: 0, y: 10 },
+  };
+
+  const detailsContainerVariants = {
+    hidden: {
+      opacity: 0,
+      clipPath: "inset(0 0 100% 0)",
+    },
+    visible: {
+      opacity: 1,
+      clipPath: "inset(0 0 0% 0)",
+      transition: {
+        duration: 0.8,
+        ease: "easeOut",
+      },
+    },
+    exit: {
+      opacity: 0,
+      scaleY: 0,
+      originY: 0.5,
+      transition: {
+        duration: 0.8,
+        ease: "easeInOut",
+      },
+    },
+  };
+
   return (
     <div className="searchBox">
       <div className="searchBar">
@@ -198,245 +248,308 @@ const SearchBar = ({ inputField, setInputField }) => {
           </div>
         )}
       </div>
-      {showLoadWithFetching ? (
-        <div className="searchTabBox">
-          <div className="searchTabs">
-            <div
-              onClick={() => {
-                setTabActive("all");
-              }}
-              className={tabActive === "all" ? "activeTab" : "tab"}
-            >
-              <span className="searchTabsField">All</span>
-              <span className="searchTabsCount">9</span>
-            </div>
-            {showFiles && (
-              <div
-                onClick={() => {
-                  setTabActive("files");
-                }}
-                className={tabActive === "files" ? "activeTab tab" : "tab"}
-              >
-                <img
-                  className="tabsIcon"
-                  src={attachmentIcon}
-                  alt="attachment-icon"
-                />
-                <span className="searchTabsField">Files</span>
-                <span className="searchTabsCount">9</span>
-              </div>
-            )}
-            {showPeoples && (
-              <div
-                onClick={() => {
-                  setTabActive("peoples");
-                }}
-                className={tabActive === "peoples" ? "activeTab tab" : "tab"}
-              >
-                <img className="tabsIcon" src={peopleIcon} alt="people-icon" />
-                <span className="searchTabsField">People</span>
-                <span className="searchTabsCount">9</span>
-              </div>
-            )}
-            {showChats && (
-              <div
-                onClick={() => {
-                  setTabActive("chats");
-                }}
-                className={tabActive === "chats" ? "activeTab tab" : "tab"}
-              >
-                <img className="tabsIcon" src={chatIcon} alt="chat-icon" />
-                <span className="searchTabsField">Chats</span>
-                <span className="searchTabsCount">9</span>
-              </div>
-            )}
-            {showLists && (
-              <div
-                onClick={() => {
-                  setTabActive("lists");
-                }}
-                className={tabActive === "lists" ? "activeTab tab" : "tab"}
-              >
-                <img className="tabsIcon" src={listIcon} alt="list-icon" />
-                <span className="searchTabsField">Lists</span>
-                <span className="searchTabsCount">9</span>
-              </div>
-            )}
-          </div>
-          <div className="searchTabsSetting">
-            <img
-              className={"settingIcon"}
-              onClick={() => {
-                setShowSettingPopup(!showSettingPopup);
-              }}
-              src={settingIcon}
-              alt="setting-icon"
-            />
-            {showSettingPopup && (
-              <div className="settingPopup">
-                <div className="settingOption">
-                  <img src={attachmentIcon} alt="attachment-icon" />
-                  <span>Files</span>
+      <AnimatePresence>
+        {showLoadWithFetching || fetchingData || fetchedData ? (
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            variants={detailsContainerVariants}
+          >
+            {showLoadWithFetching ? (
+              <div className="searchTabBox">
+                <div className="searchTabs">
                   <div
-                    onClick={() => setShowFiles(!showFiles)}
-                    className={
-                      showFiles
-                        ? "settingsOpSwitchOn settingOpSwitch"
-                        : "settingOpSwitch"
-                    }
+                    onClick={() => {
+                      setTabActive("all");
+                    }}
+                    className={tabActive === "all" ? "activeTab" : "tab"}
                   >
-                    <label
-                      className={
-                        showFiles ? "settingOptionOn" : "settingOptionOff"
-                      }
-                    ></label>
+                    <span className="searchTabsField">All</span>
+                    <span className="searchTabsCount">9</span>
                   </div>
-                </div>
-                <div className="settingOption">
-                  <img src={peopleIcon} alt="people-icon" />
-                  <span>People</span>
-                  <div
-                    onClick={() => setShowPeoples(!showPeoples)}
-                    className={
-                      showPeoples
-                        ? "settingsOpSwitchOn settingOpSwitch"
-                        : "settingOpSwitch"
-                    }
-                  >
-                    <label
+                  {showFiles && (
+                    <div
+                      onClick={() => {
+                        setTabActive("files");
+                      }}
                       className={
-                        showPeoples ? "settingOptionOn" : "settingOptionOff"
+                        tabActive === "files" ? "activeTab tab" : "tab"
                       }
-                    ></label>
-                  </div>
-                </div>
-                <div className="settingOption">
-                  <img src={chatIcon} alt="chat-icon" />
-                  <span>Chats</span>
-                  <div
-                    onClick={() => setShowChats(!showChats)}
-                    className={
-                      showChats
-                        ? "settingsOpSwitchOn settingOpSwitch"
-                        : "settingOpSwitch"
-                    }
-                  >
-                    <label
+                    >
+                      <img
+                        className="tabsIcon"
+                        src={attachmentIcon}
+                        alt="attachment-icon"
+                      />
+                      <span className="searchTabsField">Files</span>
+                      <span className="searchTabsCount">9</span>
+                    </div>
+                  )}
+                  {showPeoples && (
+                    <div
+                      onClick={() => {
+                        setTabActive("peoples");
+                      }}
                       className={
-                        showChats ? "settingOptionOn" : "settingOptionOff"
+                        tabActive === "peoples" ? "activeTab tab" : "tab"
                       }
-                    ></label>
-                  </div>
-                </div>
-                <div className="settingOption">
-                  <img src={listIcon} alt="list-icon" />
-                  <span>Lists</span>
-                  <div
-                    onClick={() => setShowLists(!showLists)}
-                    className={
-                      showLists
-                        ? "settingsOpSwitchOn settingOpSwitch"
-                        : "settingOpSwitch"
-                    }
-                  >
-                    <label
+                    >
+                      <img
+                        className="tabsIcon"
+                        src={peopleIcon}
+                        alt="people-icon"
+                      />
+                      <span className="searchTabsField">People</span>
+                      <span className="searchTabsCount">9</span>
+                    </div>
+                  )}
+                  {showChats && (
+                    <div
+                      onClick={() => {
+                        setTabActive("chats");
+                      }}
                       className={
-                        showLists ? "settingOptionOn" : "settingOptionOff"
+                        tabActive === "chats" ? "activeTab tab" : "tab"
                       }
-                    ></label>
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
-      ) : null}
-      {fetchingData ? (
-        <div className="previewBox">
-          {Array.from({ length: 6 }).map((_, i) => (
-            <div key={i} className="previewRow">
-              <div className="previewProfile" />
-              <div className="previewDetail">
-                <div className="previewLine previewUpper" />
-                <div className="previewLine previewLower" />
-              </div>
-            </div>
-          ))}
-        </div>
-      ) : fetchedData ? (
-        <div
-          className={
-            data.length > 6
-              ? "searchBoxResult searchBoxResultsScroll"
-              : "searchBoxResult"
-          }
-        >
-          {data.map((e) => {
-            return (
-              <div
-                key={e.id}
-                onMouseOver={() => setRowHover(e.id)}
-                onMouseLeave={() => setRowHover("")}
-                className={
-                  e.id === rowHover ? "searchBoxResults searchedHoveredRow" : "searchBoxResults"
-                }
-              >
-                <div className="searchBoxImgBlock">
-                  <img
-                    className="searchDataImg"
-                    src={e.img}
-                    alt="profileImage"
-                  />
-                  {e.type === "account" && (
-                    <span
+                    >
+                      <img
+                        className="tabsIcon"
+                        src={chatIcon}
+                        alt="chat-icon"
+                      />
+                      <span className="searchTabsField">Chats</span>
+                      <span className="searchTabsCount">9</span>
+                    </div>
+                  )}
+                  {showLists && (
+                    <div
+                      onClick={() => {
+                        setTabActive("lists");
+                      }}
                       className={
-                        e.status === "Unactivated"
-                          ? "accountDeactivated accountStatus"
-                          : e.status === "Active now"
-                          ? "accountActiveNow accountStatus"
-                          : "accountActivate accountStatus"
+                        tabActive === "lists" ? "activeTab tab" : "tab"
                       }
-                    ></span>
+                    >
+                      <img
+                        className="tabsIcon"
+                        src={listIcon}
+                        alt="list-icon"
+                      />
+                      <span className="searchTabsField">Lists</span>
+                      <span className="searchTabsCount">9</span>
+                    </div>
                   )}
                 </div>
-                <div className="searchDataDetails">
-                  <div className="searchDataUpper">
-                    <p>{inputTextToHighlight(e.name, inputField)}</p>
-                    {e.files && <span>{e.files}</span>}
-                  </div>
-                  <div className="searchDataLower">
-                    {e.usage && (
-                      <div>
-                        <p>{e.usage}</p>
-                        <span></span>
-                      </div>
+                <div className="searchTabsSetting">
+                  <img
+                    className={"settingIcon"}
+                    onClick={() => {
+                      setShowSettingPopup(!showSettingPopup);
+                    }}
+                    src={settingIcon}
+                    alt="setting-icon"
+                  />
+                  <AnimatePresence>
+                    {showSettingPopup && (
+                      <motion.div
+                        initial="hidden"
+                        animate="visible"
+                        exit="exit"
+                        variants={settingsContainerVariants}
+                        className="settingPopup"
+                      >
+                        <motion.div
+                          variants={settingsItemVariants}
+                          className="settingOption"
+                        >
+                          <img src={attachmentIcon} alt="attachment-icon" />
+                          <span>Files</span>
+                          <div
+                            onClick={() => setShowFiles(!showFiles)}
+                            className={
+                              showFiles
+                                ? "settingsOpSwitchOn settingOpSwitch"
+                                : "settingOpSwitch"
+                            }
+                          >
+                            <label
+                              className={
+                                showFiles
+                                  ? "settingOptionOn"
+                                  : "settingOptionOff"
+                              }
+                            ></label>
+                          </div>
+                        </motion.div>
+                        <motion.div
+                          variants={settingsItemVariants}
+                          className="settingOption"
+                        >
+                          <img src={peopleIcon} alt="people-icon" />
+                          <span>People</span>
+                          <div
+                            onClick={() => setShowPeoples(!showPeoples)}
+                            className={
+                              showPeoples
+                                ? "settingsOpSwitchOn settingOpSwitch"
+                                : "settingOpSwitch"
+                            }
+                          >
+                            <label
+                              className={
+                                showPeoples
+                                  ? "settingOptionOn"
+                                  : "settingOptionOff"
+                              }
+                            ></label>
+                          </div>
+                        </motion.div>
+                        <motion.div
+                          variants={settingsItemVariants}
+                          className="settingOption"
+                        >
+                          <img src={chatIcon} alt="chat-icon" />
+                          <span>Chats</span>
+                          <div
+                            onClick={() => setShowChats(!showChats)}
+                            className={
+                              showChats
+                                ? "settingsOpSwitchOn settingOpSwitch"
+                                : "settingOpSwitch"
+                            }
+                          >
+                            <label
+                              className={
+                                showChats
+                                  ? "settingOptionOn"
+                                  : "settingOptionOff"
+                              }
+                            ></label>
+                          </div>
+                        </motion.div>
+                        <motion.div
+                          variants={settingsItemVariants}
+                          className="settingOption"
+                        >
+                          <img src={listIcon} alt="list-icon" />
+                          <span>Lists</span>
+                          <div
+                            onClick={() => setShowLists(!showLists)}
+                            className={
+                              showLists
+                                ? "settingsOpSwitchOn settingOpSwitch"
+                                : "settingOpSwitch"
+                            }
+                          >
+                            <label
+                              className={
+                                showLists
+                                  ? "settingOptionOn"
+                                  : "settingOptionOff"
+                              }
+                            ></label>
+                          </div>
+                        </motion.div>
+                      </motion.div>
                     )}
-                    <p>{e.status}</p>
-                  </div>
+                  </AnimatePresence>
                 </div>
-                {e.id === rowHover ? (
-                  <div className="searchDataLinks">
-                    <div className="searchDataLinkCopyBox">
-                      <label>
-                        {copied === rowHover ? "Linked copied!" : "Copy Link"}
-                      </label>
-                      <img
-                        onClick={() => setCopied(rowHover)}
-                        src={linkIcon}
-                        alt="linkIcon"
-                      />
-                    </div>
-                    <div className="searchDataNewTabBox">
-                      <img src={newTabIcon} alt="tabIcon" />
-                      <span>New Tab</span>
+              </div>
+            ) : null}
+            {fetchingData ? (
+              <div className="previewBox">
+                {Array.from({ length: 6 }).map((_, i) => (
+                  <div key={i} className="previewRow">
+                    <div className="previewProfile" />
+                    <div className="previewDetail">
+                      <div className="previewLine previewUpper" />
+                      <div className="previewLine previewLower" />
                     </div>
                   </div>
-                ) : null}
+                ))}
               </div>
-            );
-          })}
-        </div>
-      ) : null}
+            ) : fetchedData ? (
+              <div
+                className={
+                  data.length > 6
+                    ? "searchBoxResult searchBoxResultsScroll"
+                    : "searchBoxResult"
+                }
+              >
+                {data.map((e) => {
+                  return (
+                    <div
+                      key={e.id}
+                      onMouseOver={() => setRowHover(e.id)}
+                      onMouseLeave={() => setRowHover("")}
+                      className={
+                        e.id === rowHover
+                          ? "searchBoxResults searchedHoveredRow"
+                          : "searchBoxResults"
+                      }
+                    >
+                      <div className="searchBoxImgBlock">
+                        <img
+                          className="searchDataImg"
+                          src={e.img}
+                          alt="profileImage"
+                        />
+                        {e.type === "account" && (
+                          <span
+                            className={
+                              e.status === "Unactivated"
+                                ? "accountDeactivated accountStatus"
+                                : e.status === "Active now"
+                                ? "accountActiveNow accountStatus"
+                                : "accountActivate accountStatus"
+                            }
+                          ></span>
+                        )}
+                      </div>
+                      <div className="searchDataDetails">
+                        <div className="searchDataUpper">
+                          <p>{inputTextToHighlight(e.name, inputField)}</p>
+                          {e.files && <span>{e.files}</span>}
+                        </div>
+                        <div className="searchDataLower">
+                          {e.usage && (
+                            <div>
+                              <p>{e.usage}</p>
+                              <span></span>
+                            </div>
+                          )}
+                          <p>{e.status}</p>
+                        </div>
+                      </div>
+                      {e.id === rowHover ? (
+                        <div className="searchDataLinks">
+                          <div className="searchDataLinkCopyBox">
+                            <label>
+                              {copied === rowHover
+                                ? "Linked copied!"
+                                : "Copy Link"}
+                            </label>
+                            <img
+                              onClick={() => setCopied(rowHover)}
+                              src={linkIcon}
+                              alt="linkIcon"
+                            />
+                          </div>
+                          <div className="searchDataNewTabBox">
+                            <img src={newTabIcon} alt="tabIcon" />
+                            <span>New Tab</span>
+                          </div>
+                        </div>
+                      ) : null}
+                    </div>
+                  );
+                })}
+              </div>
+            ) : null}
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
     </div>
   );
 };
